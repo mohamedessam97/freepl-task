@@ -1,0 +1,128 @@
+<div
+  class="absolute bg-white top-0 right-0 h-full w-1/2 px-20 py-5 transition ease-in-out duration-500 shadow-2xl"
+  [ngClass]="{ 'translate-x-full': !opened }"
+>
+  <div class="absolute top-16 left-10">
+    <svg
+      width="26"
+      height="26"
+      viewBox="0 0 15 15"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      class="cursor-pointer"
+      (click)="closeEmpModal()"
+    >
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="M6.793 7.5 1.146 1.854l.708-.708L7.5 6.793l5.647-5.647.707.708L8.207 7.5l5.647 5.646-.707.707L7.5 8.208l-5.646 5.647-.708-.708z"
+        fill="#000"
+      />
+    </svg>
+  </div>
+  <h1 class="text-3xl font-bold text-slate-800 mb-10 mt-32">
+    Employee Details
+  </h1>
+
+  <div class="flex items-center gap-5 mb-10">
+    <input
+      type="text"
+      class="border border-slate-600 rounded-lg px-4 py-2 w-full"
+      placeholder="Search for employees"
+      [(ngModel)]="searchTerm"
+    />
+
+    <select
+      class="border border-slate-600 rounded-lg px-4 py-2 w-full"
+      [(ngModel)]="selectedDepartment"
+    >
+      <option value="" selected hidden>Select Department</option>
+      <option [value]="deprt" *ngFor="let deprt of depatrments">
+        {{ deprt }}
+      </option>
+    </select>
+  </div>
+  <div class="flex gap-2 justify-end mt-5 mb-10">
+    <button
+      class="border border-slate-600 text-slate-600 font-bold py-2 px-4 rounded-lg"
+      (click)="clearSearch()"
+    >
+      Clear
+    </button>
+    <button
+      class="bg-slate-800 hover:bg-slate-700 text-white font-bold py-2 px-4 rounded-lg"
+      (click)="searchEmployees()"
+    >
+      Search
+    </button>
+  </div>
+
+  <table class="border-collapse table-auto w-full text-sm mt-5">
+    <caption class="text-3xl font-bold text-slate-800 mb-10 mt-32 text-left">
+      Availabe Employees
+    </caption>
+    <thead class="bg-slate-800">
+      <tr>
+        <th
+          class="border-b border-slate-600 font-medium p-4 pl-8 pb-3 text-slate-200 text-left"
+        >
+          Name
+        </th>
+        <th
+          class="border-b border-slate-600 font-medium p-4 pl-8 pb-3 text-slate-200 text-left"
+        >
+          Title
+        </th>
+        <th
+          class="border-b border-slate-600 font-medium p-4 pl-8 pb-3 text-slate-200 text-left"
+        >
+          Years of Experience
+        </th>
+        <th
+          class="border-b border-slate-600 font-medium p-4 pl-8 pb-3 text-slate-200 text-left"
+        >
+          Action
+        </th>
+      </tr>
+    </thead>
+    <tbody class="">
+      <tr *ngFor="let emp of employees">
+        <td class="border-b border-slate-700 p-4 pl-8">
+          {{ emp.name }}
+        </td>
+        <td class="border-b border-slate-700 p-4 pl-8">
+          {{ emp.title }}
+        </td>
+        <td class="border-b border-slate-700 p-4 pl-8">
+          {{ emp.yearsOfExperience }}
+        </td>
+        <td class="border-b border-slate-700 p-4 pl-8">
+          <svg
+            width="35"
+            height="35"
+            viewBox="0 0 48 48"
+            version="1"
+            xmlns="http://www.w3.org/2000/svg"
+            class="cursor-pointer"
+            (click)="addEmp(emp.name)"
+          >
+            <circle fill="#4CAF50" cx="24" cy="24" r="21" />
+            <g fill="#fff">
+              <path d="M21 14h6v20h-6z" />
+              <path d="M14 21h20v6H14z" />
+            </g>
+          </svg>
+        </td>
+      </tr>
+      <tr>
+        <td
+          *ngIf="!employees.length"
+          class="w-full text-center p-5 border-b border-slate-700"
+          colspan="5"
+        >
+          There is no results yet!
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
